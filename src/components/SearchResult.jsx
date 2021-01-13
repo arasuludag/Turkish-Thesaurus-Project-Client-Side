@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 
 import AddWord from "./AddWord.jsx";
 import Tabs from "./Tabs.jsx";
+import ShowSampleUsage from "./ShowSampleUsage.jsx";
 
 function SearchResult(props) {
   const [tabData, setTabData] = useState("Wait");
@@ -18,10 +19,11 @@ function SearchResult(props) {
     });
     axios.post("/api/generated-words", { word: props.word.word }).then((res) => {
       setGenWords(res.data);
-      console.log(res.data)
     });
 
   }, [props.word]);
+
+  console.log(props.word)
 
   function checkData() {
     if (props.word === undefined || props.word === "") return null;
@@ -34,17 +36,26 @@ function SearchResult(props) {
       );
     else
       return (
+        <div>
+
         <Paper elevation={3} className="smoothbackground">
           <h1 style={{ textAlign: "center" }}>{props.word.word}</h1>
           <Tabs tabData={tabData} wordData={props.word} genWords={genWords} />
         </Paper>
+
+
+        <Paper elevation={3} className="smoothbackground">
+          <ShowSampleUsage wordData={props.word} />
+        </Paper>
+
+        </div>
       );
   }
 
   return (
-    <Grid item xs={12} sm={10} lg={7}>
+        <Grid item xs={12} sm={10} lg={5}>
       {checkData()}
-    </Grid>
+</Grid>
   );
 }
 

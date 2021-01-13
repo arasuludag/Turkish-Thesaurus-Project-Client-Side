@@ -62,8 +62,13 @@ function FormDialog(props) {
         <DialogTitle id="form-dialog-title">Kelime Sil</DialogTitle>
         <DialogContent>
           <RadioDeleteButton
-            sendValue={(value) => setWord(value)}
-            sendName={(name) => setTabId(name)}
+            tabData = {props.tabData}
+            deleteThis={(word, tabId) => {
+              console.log(word)
+              console.log(tabId)
+              setWord(word);
+              setTabId(tabId);
+            }}
           />
         </DialogContent>
         <DialogActions>

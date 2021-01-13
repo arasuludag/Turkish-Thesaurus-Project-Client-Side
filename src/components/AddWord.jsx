@@ -7,11 +7,7 @@ function AddWord(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const addedWord = {
-      word: props.word,
-    };
-
-    axios.post("/api/add-word", { addedWord }).then((res) => {
+    axios.post("/api/add-word", { word: props.word }).then((res) => {
       window.location.reload();
     });
   };

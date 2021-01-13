@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 import Button from "@material-ui/core/Button";
@@ -8,25 +9,26 @@ import AutoCompleteSearch from "./AutoCompleteSearch.jsx";
 
 function Search(props) {
   const [word, setWord] = useState("");
-  const [ranOnce, setRanOnce] = useState(false);
 
-  const path = window.location.pathname;
-  if (ranOnce === false) {
-    setRanOnce(true);
-    const parts = path.split("/");
-    const theWord = parts.slice(2, 3);
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname;
+
+    const splittedPath = path.split("/");
 
     const searchedWord = {
-      word: theWord[0],
+      word: splittedPath[2],
     };
 
-    if (theWord[0] !== undefined) {
+    if (splittedPath[2] !== undefined) {
       axios.post("/api/word", { searchedWord }).then((res) => {
-        if (res.data === "Nope") {props.onResponseChange(searchedWord.word)}
-        else props.onResponseChange(res.data);
+        if (res.data === "Nope") {
+          props.onResponseChange(searchedWord.word);
+        } else props.onResponseChange(res.data);
       });
     }
-  }
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,14 +39,16 @@ function Search(props) {
       word: wordCapitalized,
     };
 
-    if (path === "/") {
-      axios.post("/api/word", { searchedWord }).then((res) => {
-        props.onResponseChange(res.data);
-      });
-    }
-
-    window.history.pushState(null, wordCapitalized, "/ara/" + wordCapitalized);
-    setRanOnce(false);
+    axios.post("/api/word", { searchedWord }).then((res) => {
+      if (res.data === "Nope") {
+        props.onResponseChange(searchedWord.word);
+      } else props.onResponseChange(res.data);
+      window.history.pushState(
+        null,
+        wordCapitalized,
+        "/ara/" + wordCapitalized
+      );
+    });
   };
 
   return (
@@ -65,7 +69,6 @@ function Search(props) {
             type="submit"
             style={{
               backgroundColor: "#4B0082",
-              color: "white",
               borderRadius: "50%",
               padding: "20px",
               textAlign: "center",
