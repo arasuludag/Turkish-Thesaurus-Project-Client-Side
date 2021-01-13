@@ -1,0 +1,6 @@
+[submodule "Turkish-Thesaurus-Project"]
+	path = Turkish-Thesaurus-Project
+	url = https://github.com/arasuludag/Turkish-Thesaurus-Project.git
+[submodule "client"]
+	path = client
+	url = https://github.com/arasuludag/Turkish-Thesaurus-Project.git
