@@ -14,6 +14,7 @@ function Register() {
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [code, setCode] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,9 +23,8 @@ function Register() {
       name: name,
       username: userName,
       password: password,
+      code: code
     };
-
-    console.log(user)
 
     axios.post("/api/register", { user }).then((res) => {
       window.location = "/";
@@ -41,6 +41,10 @@ function Register() {
 
   const handleNameChange = (event) => {
     setName(event.target.value);
+  };
+
+  const handleCodeChange = (event) => {
+    setCode(event.target.value);
   };
 
   return (
@@ -71,6 +75,11 @@ function Register() {
                     type="password"
                     onChange={handlePassChange}
                     label="Password" />
+
+                    <Input
+                      type="text"
+                      onChange={handleCodeChange}
+                      label="Registration Code" />
 
 
                   <Button variant="contained" size="large" color="white" type="submit" style={{

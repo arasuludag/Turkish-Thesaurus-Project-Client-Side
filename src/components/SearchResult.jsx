@@ -37,18 +37,16 @@ function SearchResult(props) {
         <div>
           <Paper elevation={3} className="smoothbackground">
             <h1 style={{ textAlign: "center" }}>{props.word.word}</h1>
-            <Tabs tabData={tabData} wordData={props.word} genWords={genWords}/>
+            <Tabs tabData={tabData} wordData={props.word} genWords={genWords} />
           </Paper>
 
-          <Paper elevation={3} className="smoothbackground">
-            <ShowSampleUsage wordData={props.word} />
-          </Paper>
+          <ShowSampleUsage wordData={props.word} />
         </div>
       );
   }
 
   return (
-    <Grid item xs={12} sm={10} lg={6}>
+    <Grid item xs={12} lg={6}>
       {checkData()}
     </Grid>
   );

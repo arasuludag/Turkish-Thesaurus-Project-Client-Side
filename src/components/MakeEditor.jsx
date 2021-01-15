@@ -6,11 +6,28 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 import Input from "./Input.jsx";
+import Snackbar from "./Snackbar.jsx";
+
+const CustomDialog = withStyles({
+  paper: {
+    backgroundColor: "#1c1d26",
+  },
+})(Dialog);
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
 
 function FormDialog(props) {
+  const classes = useStyles();
+
   const [open, setOpen] = React.useState(false);
+  const [snackbar, setSnackbar] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -25,7 +42,9 @@ function FormDialog(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post("/api/make-editor", { email: email }).then((res) => {});
+    axios.post("/api/make-editor", { email: email }).then((res) => {
+        setSnackbar(true);
+    });
   };
 
   const handleChange = (event) => {
@@ -47,10 +66,11 @@ function FormDialog(props) {
       >
         Editör Ata
       </Button>
-      <Dialog
+      <CustomDialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        className={classes.root}
       >
         <DialogTitle id="form-dialog-title">Editör Ata</DialogTitle>
         <DialogContent>
@@ -65,7 +85,8 @@ function FormDialog(props) {
             Editör Yap
           </Button>
         </DialogActions>
-      </Dialog>
+      </CustomDialog>
+      <Snackbar snackbar = {snackbar} setSnackbar={(bool) => {setSnackbar(bool);}}/>
     </div>
   );
 }

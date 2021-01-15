@@ -9,20 +9,26 @@ const CustomTextField = withStyles({
   root: {
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "white",
+        borderColor: "purple",
       },
       "&:hover fieldset": {
-        borderColor: "white",
+        borderColor: "mediumPurple",
       },
       "&.Mui-focused fieldset": {
         borderColor: "purple",
       },
     },
     "& label.Mui-focused": {
-      color: "white",
+      color: "purple",
     },
   },
 })(TextField);
+
+const CustomAutocomplete = withStyles({
+  paper: {
+    backgroundColor: "#1c1d26",
+  },
+})(Autocomplete);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +62,7 @@ export default function ComboBox(props) {
   };
 
   return (
-    <Autocomplete
+    <CustomAutocomplete
       options={suggestions}
       getOptionLabel={(option) => option.word}
       fullWidth

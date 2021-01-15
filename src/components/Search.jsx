@@ -46,14 +46,10 @@ function Search(props) {
   };
 
   return (
+    <Grid item xs={8} lg={7}>
     <form onSubmit={handleSubmit}>
-      <Grid
-        container
-        direction="row"
-        justify="space-evenly"
-        alignItems="center"
-      >
-        <Grid item xs={8} sm={8} md={7} lg={7}>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item xs={11} sm={11} md={11} lg={11}>
           <AutoCompleteSearch
             onInputChange={(event, newInputValue) => {
               setWord(newInputValue);
@@ -62,17 +58,18 @@ function Search(props) {
             label="Kelime Ara"
           />
         </Grid>
-        <Grid item xs={2} sm={2} lg={2}>
+        <Grid item xs={1} sm={1} lg={1}>
           <IconButton
             type="submit"
             aria-label="delete"
-            style={{ color: "#4B0082" }}
+            style={{ color: "purple" }}
           >
             <SearchIcon fontSize="large" />
           </IconButton>
         </Grid>
       </Grid>
     </form>
+  </Grid>
   );
 }
 

@@ -8,7 +8,7 @@ function Footer() {
   return (
     <footer style={{ marginTop: "200px" }}>
       <div className="footer-copyright text-center py-3 h6">
-        <p style={{ textAlign: "center" }}>
+        <p style={{ textAlign: "center", fontSize: "0.7rem" }}>
           {" "}
           © {yearNow} Copyright: Aras Uludag{" "}
         </p>

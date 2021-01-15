@@ -15,14 +15,7 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const user = {
-      username: userName,
-      password: password,
-    };
-
-    console.log(user)
-
-    axios.post("/api/login", { user }).then((res) => {
+    axios.post("/api/login", { username: userName, password: password }).then((res) => {
       window.location = "/";
     });
   };

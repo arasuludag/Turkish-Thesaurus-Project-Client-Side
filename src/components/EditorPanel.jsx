@@ -11,7 +11,7 @@ import DeleteSearchableWord from "./DeleteSearchableWord.jsx";
 import MakeEditor from "./MakeEditor.jsx";
 
 function EditorPanel(props) {
-  const [data, setData] = useState("")
+  const [data, setData] = useState("");
 
   useEffect(() => {
     axios.get("/api/current_user").then((res) => {

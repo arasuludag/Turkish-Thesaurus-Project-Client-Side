@@ -25,14 +25,14 @@ function ShowSampleUsage(props) {
   function List() {
     if (usage !== undefined) {
       return usage.map((sample) => {
-        return (<div>
+        return (<Paper elevation={3} className="smoothbackground">
 
           <h2>{sample.Soz}</h2>
           <p><i>{sample.Tip}</i></p>
           <p>{sample.Anlam}</p>
           <br/>
 
-        </div>
+        </Paper>
         )
       });
       }

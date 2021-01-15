@@ -1,24 +1,45 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 import RadioDeleteButton from "./RadioDeleteButton.jsx";
+import Snackbar from "./Snackbar.jsx";
+
+const CustomDialog = withStyles({
+  paper: {
+    backgroundColor: "#1c1d26",
+  },
+})(Dialog);
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
 
 function FormDialog(props) {
+  const classes = useStyles();
+
   const [open, setOpen] = React.useState(false);
   const [tabId, setTabId] = useState("");
   const [word, setWord] = useState("");
+  const [snackbar, setSnackbar] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  const history = useHistory();
   const handleClose = () => {
+    history.push("/");
+    history.goBack();
     setOpen(false);
   };
 
@@ -33,7 +54,9 @@ function FormDialog(props) {
     console.log(deletedWord);
 
     if (deletedWord.word !== "") {
-      axios.post("/api/delete-word", { deletedWord }).then((res) => {});
+      axios.post("/api/delete-word", { deletedWord }).then((res) => {
+          setSnackbar(true);
+      });
     }
   };
 
@@ -52,7 +75,7 @@ function FormDialog(props) {
       >
         Kelime Sil
       </Button>
-      <Dialog
+      <CustomDialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
@@ -77,7 +100,8 @@ function FormDialog(props) {
             Sil Gitsin
           </Button>
         </DialogActions>
-      </Dialog>
+      </CustomDialog>
+      <Snackbar snackbar = {snackbar} setSnackbar={(bool) => {setSnackbar(bool);}}/>
     </div>
   );
 }
