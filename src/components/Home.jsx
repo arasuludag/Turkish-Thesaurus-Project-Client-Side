@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
@@ -14,7 +12,7 @@ function Home() {
   return (
     <div className="App">
       <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={12} sm={10} lg={7}>
+        <Grid item xs={12} sm={10} lg={4}>
           <Paper elevation={3} className="smoothbackground">
             <h1 style={{ textAlign: "center" }}>TResaurus</h1>
 
@@ -22,10 +20,14 @@ function Home() {
               onResponseChange={(newWord) => {
                 setWord(newWord);
               }}
+              
             />
           </Paper>
         </Grid>
-        <SearchResult word={word} />
+        <SearchResult
+          word={word}
+
+        />
       </Grid>
     </div>
   );

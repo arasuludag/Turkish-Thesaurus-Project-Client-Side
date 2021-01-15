@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import axios from "axios";
 
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
 import Grid from "@material-ui/core/Grid";
 
 import AutoCompleteSearch from "./AutoCompleteSearch.jsx";
@@ -11,50 +13,47 @@ function Search(props) {
   const [word, setWord] = useState("");
 
   const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
-    const path = location.pathname;
+    var path = location.pathname;
+    console.log(path);
 
     const splittedPath = path.split("/");
 
-    const searchedWord = {
-      word: splittedPath[2],
-    };
-
-    if (splittedPath[2] !== undefined) {
-      axios.post("/api/word", { searchedWord }).then((res) => {
+    if (splittedPath[2] !== undefined && splittedPath[2].length > 2) {
+      axios.post("/api/word", { word: splittedPath[2] }).then((res) => {
         if (res.data === "Nope") {
-          props.onResponseChange(searchedWord.word);
+          props.onResponseChange(splittedPath[2]);
         } else props.onResponseChange(res.data);
       });
     }
-  }, []);
+  }, [location.pathname]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const wordCapitalized = word.charAt(0).toUpperCase() + word.slice(1);
 
-    const searchedWord = {
-      word: wordCapitalized,
-    };
-
-    axios.post("/api/word", { searchedWord }).then((res) => {
-      if (res.data === "Nope") {
-        props.onResponseChange(searchedWord.word);
-      } else props.onResponseChange(res.data);
-      window.history.pushState(
-        null,
-        wordCapitalized,
-        "/ara/" + wordCapitalized
-      );
-    });
+    if (wordCapitalized !== undefined && wordCapitalized.length > 2) {
+      axios.post("/api/word", { word: wordCapitalized }).then((res) => {
+        if (res.data === "Nope") {
+          props.onResponseChange(wordCapitalized);
+        } else props.onResponseChange(res.data);
+        history.push("/ara/" + word);
+      });
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={6} sm={4} md={4} lg={3}>
+      <Grid
+        container
+        direction="row"
+        justify="space-evenly"
+        alignItems="center"
+      >
+        <Grid item xs={8} sm={8} md={7} lg={7}>
           <AutoCompleteSearch
             onInputChange={(event, newInputValue) => {
               setWord(newInputValue);
@@ -63,20 +62,14 @@ function Search(props) {
             label="Kelime Ara"
           />
         </Grid>
-        <Grid item xs={1} sm={1} lg={1}>
-          <Button
-            variant="contained"
+        <Grid item xs={2} sm={2} lg={2}>
+          <IconButton
             type="submit"
-            style={{
-              backgroundColor: "#4B0082",
-              borderRadius: "50%",
-              padding: "20px",
-              textAlign: "center",
-              margin: "0 auto",
-            }}
+            aria-label="delete"
+            style={{ color: "#4B0082" }}
           >
-            Ara
-          </Button>
+            <SearchIcon fontSize="large" />
+          </IconButton>
         </Grid>
       </Grid>
     </form>

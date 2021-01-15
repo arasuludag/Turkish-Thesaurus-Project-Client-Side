@@ -39,47 +39,33 @@ export default function ComboBox(props) {
 
   const [word, setWord] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
     setWord(event.target.value);
 
-    const searchedWord = {
-      word: word,
-    };
+    setSuggestions([]);
 
-    if (word !== "" || word !== null || word !== undefined) {
-      axios.post("/api/word-suggestions", { searchedWord }).then((res) => {
-        if (res.data[0] !== undefined) {
-          setSuggestions([]);
-
-          res.data.map((suggestedWord) => {
-            var unique = true;
-
-            const arrayQuery = suggestions.map((suggestion) => {
-              if (suggestion === suggestedWord.word) {
-                unique = false;
-              }
-            });
-
-            Promise.all(arrayQuery).then(() => {
-              if (unique === true) {
-                setSuggestions([...suggestions, suggestedWord.word]);
-              }
-            });
-          });
-        }
+    if (word !== "" || (word !== undefined && word.length > 2)) {
+      setLoading(true);
+      axios.post("/api/word-suggestions", { word: word }).then((res) => {
+        setSuggestions([...res.data]);
+        setLoading(false);
       });
     }
   };
 
   return (
     <Autocomplete
-      options={suggestions.reverse()}
-      getOptionLabel={(option) => option}
+      options={suggestions}
+      getOptionLabel={(option) => option.word}
       fullWidth
       inputValue={props.inputValue}
       onInputChange={props.onInputChange}
       freeSolo
+      selectOnFocus
+      loading={loading}
+      loadingText={"Bekle biraz..."}
       renderInput={(params) => (
         <CustomTextField
           {...params}

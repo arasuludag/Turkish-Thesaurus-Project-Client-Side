@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -8,11 +10,7 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
-import AddWordtoWord from "./AddWordtoWord.jsx";
-import AddTab from "./AddTab.jsx";
-import DeleteWord from "./DeleteWord.jsx";
-import DeleteTab from "./DeleteTab.jsx";
-import DeleteSearchableWord from "./DeleteSearchableWord.jsx";
+import EditorPanel from "./EditorPanel.jsx";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -90,7 +88,7 @@ export default function CustomizedTabs(props) {
   };
 
   function ImportedThesaurusWords(index) {
-    if (props.tabData[index].thesaurus === undefined) return <h1> </h1>;
+    if (props.tabData[index].thesaurus === undefined) return null;
     else
       return props.tabData[index].thesaurus.map((word) => {
         return (
@@ -103,7 +101,7 @@ export default function CustomizedTabs(props) {
               color: "white",
               borderRadius: "10px",
             }}
-            href={"/ara/" + word}
+            onClick={() => handleSubmit(word)}
           >
             {word}
           </Button>
@@ -134,7 +132,7 @@ export default function CustomizedTabs(props) {
                 color: "white",
                 borderRadius: "10px",
               }}
-              href={"/ara/" + word}
+              onClick={() => handleSubmit(word)}
             >
               {word}
             </Button>
@@ -143,7 +141,7 @@ export default function CustomizedTabs(props) {
   }
 
   function ImportedSimilarWords(index) {
-    if (props.tabData[index].similar === undefined) return <h1> </h1>;
+    if (props.tabData[index].similar === undefined) return null;
     else
       return props.tabData[index].similar.map((word) => {
         return (
@@ -156,7 +154,7 @@ export default function CustomizedTabs(props) {
               color: "white",
               borderRadius: "10px",
             }}
-            href={"/ara/" + word}
+            onClick={() => handleSubmit(word)}
           >
             {word}
           </Button>
@@ -187,7 +185,7 @@ export default function CustomizedTabs(props) {
                 color: "white",
                 borderRadius: "10px",
               }}
-              href={"/ara/" + word}
+              onClick={() => handleSubmit(word)}
             >
               {word}
             </Button>
@@ -196,7 +194,7 @@ export default function CustomizedTabs(props) {
   }
 
   function ImportedAntonymousWords(index) {
-    if (props.tabData[index].antonymous === undefined) return <h1> </h1>;
+    if (props.tabData[index].antonymous === undefined) return null;
     else
       return props.tabData[index].antonymous.map((word) => {
         return (
@@ -209,7 +207,7 @@ export default function CustomizedTabs(props) {
               color: "white",
               borderRadius: "10px",
             }}
-            href={"/ara/" + word}
+            onClick={() => handleSubmit(word)}
           >
             {word}
           </Button>
@@ -240,7 +238,7 @@ export default function CustomizedTabs(props) {
                 color: "white",
                 borderRadius: "10px",
               }}
-              href={"/ara/" + word}
+              onClick={() => handleSubmit(word)}
             >
               {word}
             </Button>
@@ -248,36 +246,42 @@ export default function CustomizedTabs(props) {
       });
   }
 
+  const history = useHistory();
+  const handleSubmit = (word) => {
+    history.push("/ara/" + word);
+  };
+
   function Words() {
     if (
       props.tabData === undefined ||
       props.tabData === false ||
-      props.tabData === "Wait" ||
+      props.tabData === "" ||
       props.tabData === "Nope"
     ) {
       return <h1> </h1>;
-    } else return props.tabData.map((tab, index) => {
-      return (
-        <TabPanel value={value} index={index}>
-          {ImportedThesaurusWords(index)}
-          {ImportedGeneratedThesaurusWords(index)}
-          {ImportedSimilarWords(index)}
-          {ImportedGeneratedSimilarWords(index)}
-          {ImportedAntonymousWords(index)}
-          {ImportedGeneratedAntonymousWords(index)}
-        </TabPanel>
-      );
-    });
+    } else
+      return props.tabData.map((tab, index) => {
+        return (
+          <TabPanel value={value} index={index}>
+            {ImportedThesaurusWords(index)}
+            {ImportedGeneratedThesaurusWords(index)}
+            {ImportedSimilarWords(index)}
+            {ImportedGeneratedSimilarWords(index)}
+            {ImportedAntonymousWords(index)}
+            {ImportedGeneratedAntonymousWords(index)}
+          </TabPanel>
+        );
+      });
   }
 
   function TabsThemselves() {
     if (
       props.tabData === undefined ||
       props.tabData === false ||
-      props.tabData === "Wait" ||
+      props.tabData === "" ||
       props.tabData === "Nope"
     ) {
-      return <h1> </h1>;
+      return null;
     } else {
       return props.tabData.map((tab, index) => {
         return <StyledTab label={tab.name} />;
@@ -289,7 +293,7 @@ export default function CustomizedTabs(props) {
     if (
       props.tabData === undefined ||
       props.tabData === false ||
-      props.tabData === "Wait"||
+      props.tabData === "" ||
       props.tabData === "Nope"
     )
       return <h1> </h1>;
@@ -307,13 +311,12 @@ export default function CustomizedTabs(props) {
   return (
     <div className={classes.root}>
       {ImportedTabs()}
-      <Grid container direction="row" justify="center" alignItems="flex-end">
-      <AddWordtoWord tabData={props.tabData} index={value} />
-      <AddTab wordData={props.wordData} />
-      <DeleteWord tabData={props.tabData} />
-      <DeleteTab tabData={props.tabData} wordData={props.wordData} />
-      <DeleteSearchableWord />
-      </Grid>
+
+      <EditorPanel
+        tabData={props.tabData}
+        value={value}
+        wordData={props.wordData}
+      />
     </div>
   );
 }

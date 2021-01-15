@@ -109,3 +109,7 @@ input[type="number"] {
   font-weight: 500!important;
   text-transform: none !important;
 }
+
+.MuiAutocomplete-loading {
+  color: yellow !important;
+}

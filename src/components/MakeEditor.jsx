@@ -11,9 +11,6 @@ import Input from "./Input.jsx";
 
 function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
-  const [tabName, setTabName] = useState("");
-
-  var tabId = "";
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,23 +20,16 @@ function FormDialog(props) {
     setOpen(false);
   };
 
+  const [email, setEmail] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    props.tabData.map((tab) => {
-      if (tab.name === tabName) {
-        tabId = tab._id;
-      }
-      return tabId;
-    });
-
-    if (props.wordData.tabs[0] !== tabId && tabId !== "") {
-      axios.post("/api/delete-tab", { tabId }).then((res) => {});
-    }
+    axios.post("/api/make-editor", { email: email }).then((res) => {});
   };
 
   const handleChange = (event) => {
-    setTabName(event.target.value);
+    setEmail(event.target.value);
   };
 
   return (
@@ -52,26 +42,27 @@ function FormDialog(props) {
           backgroundColor: "#4B0082",
           color: "white",
           borderRadius: "33px",
-          marginTop: "15px",
+          marginTop: "50px",
         }}
       >
-        Sekme Sil
+        Editör Ata
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Kelime Sil</DialogTitle>
+        <DialogTitle id="form-dialog-title">Editör Ata</DialogTitle>
         <DialogContent>
-          <Input type="text" onChange={handleChange} label="Sekme Adı" />
+          <p>Bu konuda dikkat!</p>
+          <Input type="text" onChange={handleChange} label="E-Mail" />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
             İptal
           </Button>
           <Button onClick={handleSubmit} color="secondary">
-            Sil Gitsin
+            Editör Yap
           </Button>
         </DialogActions>
       </Dialog>
