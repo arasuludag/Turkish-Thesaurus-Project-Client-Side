@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-
-import AddWord from "./AddWord.jsx";
-import Tabs from "./Tabs.jsx";
 
 function ShowSampleUsage(props) {
   const [usage, setUsage] = useState([]);
@@ -25,7 +18,7 @@ function ShowSampleUsage(props) {
   function List() {
     if (usage !== undefined) {
       return usage.map((sample) => {
-        return (<Paper elevation={3} className="smoothbackground">
+        return (<Paper key={sample.Soz} elevation={3} className="smoothbackground">
 
           <h2>{sample.Soz}</h2>
           <p><i>{sample.Tip}</i></p>

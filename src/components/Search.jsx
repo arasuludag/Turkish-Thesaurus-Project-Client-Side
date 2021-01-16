@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import axios from "axios";
 
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import Grid from "@material-ui/core/Grid";
@@ -17,7 +16,6 @@ function Search(props) {
 
   useEffect(() => {
     var path = location.pathname;
-    console.log(path);
 
     const splittedPath = path.split("/");
 
@@ -46,10 +44,10 @@ function Search(props) {
   };
 
   return (
-    <Grid item xs={8} lg={7}>
+    <Grid item xs={12} sm={7} md={7} lg={5}>
     <form onSubmit={handleSubmit}>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={11} sm={11} md={11} lg={11}>
+      <Grid container direction="row" justify="space-between" alignItems="center">
+        <Grid item xs={10} sm={7} lg={11}>
           <AutoCompleteSearch
             onInputChange={(event, newInputValue) => {
               setWord(newInputValue);
@@ -58,11 +56,11 @@ function Search(props) {
             label="Kelime Ara"
           />
         </Grid>
-        <Grid item xs={1} sm={1} lg={1}>
+        <Grid item xs={2} sm={5} lg={1}>
           <IconButton
             type="submit"
             aria-label="delete"
-            style={{ color: "purple" }}
+            style={{ color: "#650073" }}
           >
             <SearchIcon fontSize="large" />
           </IconButton>

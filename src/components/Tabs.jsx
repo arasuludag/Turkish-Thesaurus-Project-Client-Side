@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 import PropTypes from "prop-types";
@@ -8,7 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import EditorPanel from "./EditorPanel.jsx";
 
@@ -46,7 +46,7 @@ const StyledTabs = withStyles({
     "& > span": {
       maxWidth: 40,
       width: "100%",
-      backgroundColor: "#635ee7",
+      backgroundColor: "#650073",
     },
   },
 })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
@@ -71,12 +71,6 @@ const useStyles = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
   },
-  demo1: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  demo2: {
-    backgroundColor: "transparent",
-  },
 }));
 
 export default function CustomizedTabs(props) {
@@ -93,6 +87,8 @@ export default function CustomizedTabs(props) {
       return props.tabData[index].thesaurus.map((word) => {
         return (
           <Button
+            key = {word+index}
+            title= "Eş Anlamlı Kelime"
             variant="contained"
             style={{
               marginRight: "15px",
@@ -123,6 +119,8 @@ export default function CustomizedTabs(props) {
         else
           return (
             <Button
+              key = {word+index}
+              title= "Eş Anlamlı Kelime (Bilgisayar Önerisi)"
               variant="contained"
               style={{
                 boxShadow: "0 0 0 2pt white",
@@ -146,6 +144,8 @@ export default function CustomizedTabs(props) {
       return props.tabData[index].similar.map((word) => {
         return (
           <Button
+            key = {word+index}
+            title= "Benzer Anlamlı Kelime"
             variant="contained"
             style={{
               marginRight: "15px",
@@ -176,6 +176,8 @@ export default function CustomizedTabs(props) {
         else
           return (
             <Button
+              key = {word+index}
+              title= "Benzer Anlamlı Kelime (Bilgisayar Önerisi)"
               variant="contained"
               style={{
                 boxShadow: "0 0 0 2pt white",
@@ -199,6 +201,8 @@ export default function CustomizedTabs(props) {
       return props.tabData[index].antonymous.map((word) => {
         return (
           <Button
+            key = {word+index}
+            title= "Zıt Anlamlı Kelime"
             variant="contained"
             style={{
               marginRight: "15px",
@@ -229,6 +233,8 @@ export default function CustomizedTabs(props) {
         else
           return (
             <Button
+              key = {word+index}
+              title= "Zıt Anlamlı Kelime (Bilgisayar Önerisi)"
               variant="contained"
               style={{
                 boxShadow: "0 0 0 2pt white",
@@ -252,17 +258,9 @@ export default function CustomizedTabs(props) {
   };
 
   function Words() {
-    if (
-      props.tabData === undefined ||
-      props.tabData === false ||
-      props.tabData === "" ||
-      props.tabData === "Nope"
-    ) {
-      return <h1> </h1>;
-    } else
-      return props.tabData.map((tab, index) => {
+    return props.tabData.map((tab, index) => {
         return (
-          <TabPanel value={value} index={index}>
+          <TabPanel key={index} value={value} index={index}>
             {ImportedThesaurusWords(index)}
             {ImportedGeneratedThesaurusWords(index)}
             {ImportedSimilarWords(index)}
@@ -275,18 +273,10 @@ export default function CustomizedTabs(props) {
   }
 
   function TabsThemselves() {
-    if (
-      props.tabData === undefined ||
-      props.tabData === false ||
-      props.tabData === "" ||
-      props.tabData === "Nope"
-    ) {
-      return null;
-    } else {
       return props.tabData.map((tab, index) => {
-        return <StyledTab label={tab.name} />;
+        return <StyledTab key={index} label={tab.name} />;
       });
-    }
+
   }
 
   function ImportedTabs() {
@@ -296,7 +286,7 @@ export default function CustomizedTabs(props) {
       props.tabData === "" ||
       props.tabData === "Nope"
     )
-      return <h1> </h1>;
+      return (<LinearProgress />);
     else
       return (
         <div className={classes.demo2}>

@@ -9,13 +9,13 @@ const CustomTextField = withStyles({
   root: {
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "purple",
+        borderColor: "#650073",
       },
       "&:hover fieldset": {
-        borderColor: "mediumPurple",
+        borderColor: "#A900BF",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "purple",
+        borderColor: "#650073",
       },
     },
     "& label.Mui-focused": {
@@ -26,7 +26,19 @@ const CustomTextField = withStyles({
 
 const CustomAutocomplete = withStyles({
   paper: {
-    backgroundColor: "#1c1d26",
+    backgroundColor: "#222831"
+  },
+  clearIndicator: {
+    color: "purple",
+  },
+  "@global": {
+    '.MuiAutocomplete-option[data-focus="true"]': {
+      background: "linear-gradient(90deg, #4F0059 0%, rgba(34,40,49,1) 80%)",
+      borderRadius: "10px",
+    },
+  },
+  option: {
+    backgroundColor: "#222831",
   },
 })(Autocomplete);
 
@@ -64,12 +76,14 @@ export default function ComboBox(props) {
   return (
     <CustomAutocomplete
       options={suggestions}
-      getOptionLabel={(option) => option.word}
+      getOptionLabel={(option) => {if (option.word === undefined) return option; else return option.word;}}
       fullWidth
       inputValue={props.inputValue}
       onInputChange={props.onInputChange}
       freeSolo
       selectOnFocus
+      autoComplete
+      autoHighlight
       loading={loading}
       loadingText={"Bekle biraz..."}
       renderInput={(params) => (

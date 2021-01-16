@@ -109,5 +109,5 @@ input[type="number"] {
 }
 
 .MuiAutocomplete-loading {
-  color: yellow !important;
+  color: #D0C212 !important;
 }
