@@ -31,7 +31,6 @@ function AddWord(props) {
         <Button
           variant="contained"
           size="large"
-          color="white"
           type="submit"
           style={{
             backgroundColor: "#DC3522",

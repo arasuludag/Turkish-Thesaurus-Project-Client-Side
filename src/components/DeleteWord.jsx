@@ -7,7 +7,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 import RadioDeleteButton from "./RadioDeleteButton.jsx";
 import Snackbar from "./Snackbar.jsx";
@@ -18,14 +18,7 @@ const CustomDialog = withStyles({
   },
 })(Dialog);
 
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-}));
-
 function FormDialog(props) {
-  const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
   const [tabId, setTabId] = useState("");
@@ -64,10 +57,10 @@ function FormDialog(props) {
     <div>
       <Button
         variant="contained"
-        color="white"
+        size="small"
         onClick={handleClickOpen}
         style={{
-          backgroundColor: "#4B0082",
+          backgroundColor: "#650073",
           color: "white",
           borderRadius: "33px",
           marginTop: "15px",

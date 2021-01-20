@@ -53,7 +53,7 @@ function Login() {
                     label="Password" />
 
 
-                  <Button variant="contained" size="large" color="white" type="submit" style={{
+                  <Button variant="contained" size="large" type="submit" style={{
                     marginLeft: "10px",
                     backgroundColor: "#DC3522",
                     color: "white",

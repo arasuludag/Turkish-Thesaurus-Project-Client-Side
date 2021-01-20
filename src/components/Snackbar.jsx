@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function message() {
+  const successWords = ["Başarılı!", "Muvaffakiyetli!", "O da olur.", "Tamam o zaman.", "Mantıklı hareket.", "Niye olmasın."]
+  return successWords[Math.floor(Math.random() * successWords.length)];
+}
+
 export default function CustomizedSnackbars(props) {
   const classes = useStyles();
 
@@ -31,7 +36,7 @@ export default function CustomizedSnackbars(props) {
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="success">
-          Başarılı!
+          {message()}
         </Alert>
       </Snackbar>
     </div>

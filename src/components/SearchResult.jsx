@@ -28,7 +28,10 @@ function SearchResult(props) {
     else if (props.word.word === undefined)
       return (
         <Paper elevation={3} className="smoothbackground">
-          <h3>{props.word} diye bir şey şimdilik yok. Olması gerekiyorsa yakında eklenecektir. </h3>
+          <h3>
+            {props.word} diye bir şey şimdilik yok. Olması gerekiyorsa yakında
+            eklenecektir.{" "}
+          </h3>
           <AddWord word={props.word} />
         </Paper>
       );
