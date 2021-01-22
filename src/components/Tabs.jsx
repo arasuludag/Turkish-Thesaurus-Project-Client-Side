@@ -120,7 +120,8 @@ export default function CustomizedTabs(props) {
           return (
             <Button
               key={word + index}
-              title="Eş Anlamlı Kelime (Bilgisayar Önerisi)"
+              title="Eş Anlamlı Kelime (Bilgisayar Önerisi)
+              Uyarı: Doğruluğu tartışmalı olabilir."
               variant="contained"
               style={{
                 boxShadow: "0 0 0 2pt white",
@@ -177,7 +178,8 @@ export default function CustomizedTabs(props) {
           return (
             <Button
               key={word + index}
-              title="Benzer Anlamlı Kelime (Bilgisayar Önerisi)"
+              title="Benzer Anlamlı Kelime (Bilgisayar Önerisi)
+              Uyarı: Doğruluğu tartışmalı olabilir."
               variant="contained"
               style={{
                 boxShadow: "0 0 0 2pt white",
@@ -234,7 +236,8 @@ export default function CustomizedTabs(props) {
           return (
             <Button
               key={word + index}
-              title="Zıt Anlamlı Kelime (Bilgisayar Önerisi)"
+              title="Zıt Anlamlı Kelime (Bilgisayar Önerisi)
+              Uyarı: Doğruluğu tartışmalı olabilir."
               variant="contained"
               style={{
                 boxShadow: "0 0 0 2pt white",

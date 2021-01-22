@@ -21,6 +21,9 @@ function SearchResult(props) {
       .then((res) => {
         setGenWords(res.data);
       });
+
+    if (props.word.word !== undefined) document.title = props.word.word;
+    else document.title = "TResaurus";
   }, [props.word]);
 
   function checkData() {
