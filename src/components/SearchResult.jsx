@@ -9,13 +9,9 @@ import Tabs from "./Tabs.jsx";
 import ShowSampleUsage from "./ShowSampleUsage.jsx";
 
 function SearchResult(props) {
-  const [tabData, setTabData] = useState("");
   const [genWords, setGenWords] = useState("");
 
   useEffect(() => {
-    axios.post("/api/tabs", { word: props.word.word }).then((res) => {
-      setTabData(res.data);
-    });
     axios
       .post("/api/generated-words", { word: props.word.word })
       .then((res) => {
@@ -33,7 +29,7 @@ function SearchResult(props) {
         <Paper elevation={3} className="smoothbackground">
           <h3>
             {props.word} diye bir şey şimdilik yok. Olması gerekiyorsa yakında
-            eklenecektir.{" "}
+            eklenecektir.
           </h3>
           <AddWord word={props.word} />
         </Paper>
@@ -43,7 +39,11 @@ function SearchResult(props) {
         <div>
           <Paper elevation={3} className="smoothbackground">
             <h1 style={{ textAlign: "center" }}>{props.word.word}</h1>
-            <Tabs tabData={tabData} wordData={props.word} genWords={genWords} />
+            <Tabs
+              tabData={props.word.tabs}
+              wordData={props.word}
+              genWords={genWords}
+            />
           </Paper>
 
           <ShowSampleUsage wordData={props.word} />

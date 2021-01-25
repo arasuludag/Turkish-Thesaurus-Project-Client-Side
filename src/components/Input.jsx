@@ -1,10 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import {
-  fade,
-  ThemeProvider,
   withStyles,
   makeStyles,
-  createMuiTheme,
 } from '@material-ui/core/styles';
 
 const ValidationTextField = withStyles({

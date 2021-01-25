@@ -32,15 +32,7 @@ function Search(props) {
     event.preventDefault();
 
     const wordCapitalized = word.charAt(0).toUpperCase() + word.slice(1);
-
-    if (wordCapitalized !== undefined && wordCapitalized.length > 2) {
-      axios.post("/api/word", { word: wordCapitalized }).then((res) => {
-        if (res.data === "Nope") {
-          props.onResponseChange(wordCapitalized);
-        } else props.onResponseChange(res.data);
-        history.push("/ara/" + word);
-      });
-    }
+    history.push("/ara/" + wordCapitalized);
   };
 
   return (

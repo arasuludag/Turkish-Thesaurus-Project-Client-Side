@@ -8,7 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import EditorPanel from "./EditorPanel.jsx";
 
@@ -288,7 +288,11 @@ export default function CustomizedTabs(props) {
       props.tabData === "" ||
       props.tabData === "Nope"
     )
-      return <LinearProgress />;
+      return (
+        <SkeletonTheme color="#2A323D" highlightColor="#222831">
+          <Skeleton height={200} count={1} />
+        </SkeletonTheme>
+      );
     else
       return (
         <div className={classes.demo2}>
