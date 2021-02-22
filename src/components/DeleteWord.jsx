@@ -44,8 +44,6 @@ function FormDialog(props) {
       tab: tabId,
     };
 
-    console.log(deletedWord);
-
     if (deletedWord.word !== "") {
       axios.post("/api/delete-word", { deletedWord }).then((res) => {
           setSnackbar(true);
@@ -78,8 +76,6 @@ function FormDialog(props) {
           <RadioDeleteButton
             tabData={props.tabData}
             deleteThis={(word, tabId) => {
-              console.log(word);
-              console.log(tabId);
               setWord(word);
               setTabId(tabId);
             }}

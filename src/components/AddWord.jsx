@@ -10,7 +10,6 @@ function AddWord(props) {
   useEffect(() => {
     axios.get("/api/current_user").then((res) => {
       setData(res.data);
-      console.log(res.data);
     });
   }, []);
 
